@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching | Dr. Angeline Gautami Fernando</title>
+<meta name="description" content="Associate Professor of Digital and Social Media Marketing and Business Analytics, Great Lakes Institute of Management, Chennai.">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --surface: #FFFFFF;
+    --ink: #111111;
+    --muted: #666666;
+    --line: #E2E2E2;
+    --accent: #1D4ED8;
+    --accent-ink: #FFFFFF;
+    --soft: #F2F2F2;
+    --display: Verdana, Geneva, "DejaVu Sans", sans-serif;
+    --body: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111111; --surface: #111111; --ink: #F2F2F2; --muted: #A0A0A0;
+      --line: #2E2E2E; --accent: #7FA8FF; --accent-ink: #111111; --soft: #222222;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111111; --surface: #111111; --ink: #F2F2F2; --muted: #A0A0A0;
+    --line: #2E2E2E; --accent: #7FA8FF; --accent-ink: #111111; --soft: #222222;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--body); font-size: 1rem; line-height: 1.75;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+  header.site { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 5; }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: .9rem; padding-bottom: .9rem; }
+  .brand { font-family: var(--display); font-weight: 700; font-size: .95rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  nav ul { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  nav a {
+    font-family: var(--display); font-weight: 400; font-size: .9rem; color: var(--muted);
+    text-decoration: none; padding: .4rem .8rem; border-radius: 4px; display: block;
+  }
+  nav a:hover { color: var(--ink); background: var(--soft); }
+  nav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+
+  main { padding: 3.5rem 0 5rem; min-height: 70vh; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .no-js section.page { display: block; margin-bottom: 4rem; }
+
+  h1, h2, h3 { font-family: var(--display); line-height: 1.25; letter-spacing: 0; margin: 0; }
+  h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; }
+  h2 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); font-weight: 700; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
+  p { margin: 0 0 1.1rem; max-width: 62ch; }
+  .lede { font-size: 1.1rem; color: var(--ink); max-width: 56ch; }
+  .muted { color: var(--muted); }
+
+  /* Home */
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: center; }
+  .role { font-family: var(--display); font-weight: 500; font-size: 1rem; color: var(--muted); margin: 1.2rem 0 1.6rem; line-height: 1.6; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+  .btn {
+    font-family: var(--display); font-weight: 400; font-size: .9rem; text-decoration: none;
+    padding: .65rem 1.2rem; border-radius: 4px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; display: inline-block;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { background: var(--soft); }
+  .btn.primary:hover { filter: brightness(1.1); background: var(--accent); }
+
+  /* The thread: research questions as a conversation */
+  .thread { display: flex; flex-direction: column; gap: .9rem; list-style: none; padding: 0; margin: 0; }
+  .thread li { display: flex; }
+  .thread li:nth-child(even) { justify-content: flex-end; }
+  .bubble {
+    font-family: var(--display); font-weight: 500; font-size: .98rem; line-height: 1.45;
+    padding: .95rem 1.25rem; max-width: 22rem; text-decoration: none; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .thread li:nth-child(even) .bubble { border-radius: 4px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  a.bubble:hover { border-color: var(--accent); }
+  .thread li:nth-child(even) a.bubble:hover { filter: brightness(1.1); }
+
+  .monogram { font-size: 1.4rem;
+    width: 5rem; height: 5rem; border-radius: 4px; background: var(--soft); color: var(--accent);
+    display: grid; place-items: center; font-family: var(--display); font-weight: 700; margin-bottom: 1.4rem;
+  }
+  .photo { width: 7.5rem; height: 7.5rem; border-radius: 4px; object-fit: cover; margin-bottom: 1.4rem; border: 1px solid var(--line); }
+
+  /* Research */
+  .themes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
+  .theme { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.5rem; }
+  .theme h3 { margin-bottom: .6rem; }
+  .themes .theme:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .theme p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  ul.plain { list-style: none; padding: 0; margin: 0; }
+  ul.plain li { padding: .7rem 0; border-top: 1px solid var(--line); }
+  ul.plain li:last-child { border-bottom: 1px solid var(--line); }
+  .pub { padding: 1rem 0; border-top: 1px solid var(--line); }
+  .pub:last-child { border-bottom: 1px solid var(--line); }
+  .pub .t { font-weight: 600; }
+
+  /* Teaching, resources, CV */
+  .course { display: grid; grid-template-columns: 14rem 1fr; gap: 1.5rem; padding: 1.2rem 0; border-top: 1px solid var(--line); }
+  .course:last-child { border-bottom: 1px solid var(--line); }
+  .course h3 { font-size: 1.15rem; }
+  .course p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .res { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.4rem; }
+  .res-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .res h3 { margin-bottom: .5rem; }
+  .res p { margin: 0 0 .8rem; color: var(--muted); font-size: .95rem; }
+  .res a { font-family: var(--display); font-weight: 500; }
+  details.course-block { margin-bottom: 1.25rem; }
+  details.course-block > summary { list-style: none; cursor: pointer; position: relative; padding-right: 2.5rem; }
+  details.course-block > summary::-webkit-details-marker { display: none; }
+  details.course-block > summary::after { content: "+"; position: absolute; right: 0; top: 0; font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--accent); }
+  details.course-block[open] > summary::after { content: "\2212"; }
+  details.course-block > summary p { margin: .5rem 0 0; color: var(--muted); font-size: .95rem; }
+  details.course-block > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; border-radius: 4px; }
+  .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .video { position: relative; width: 100%; aspect-ratio: 16 / 9; border: 1.5px solid var(--ink); border-radius: 4px; overflow: hidden; background: var(--soft); }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .sub { font-family: var(--display); font-size: .95rem; margin: 1.6rem 0 .6rem; }
+  table.sessions { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  table.sessions td { padding: .45rem .6rem .45rem 0; border-top: 1px solid var(--line); vertical-align: top; }
+  table.sessions td:first-child { width: 6.5rem; font-weight: 700; }
+  table.sessions tr:last-child td { border-bottom: 1px solid var(--line); }
+  ul.plain .muted { display: block; font-size: .85rem; }
+  dl.cv { margin: 0 0 2rem; }
+  dl.cv > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1.5rem; padding: .9rem 0; border-top: 1px solid var(--line); }
+  dl.cv > div:last-child { border-bottom: 1px solid var(--line); }
+  dl.cv dt { font-family: var(--display); font-weight: 700; }
+  dl.cv dd { margin: 0; }
+
+  footer.site { border-top: 1px solid var(--line); padding: 1.6rem 0 2.4rem; color: var(--muted); font-size: .98rem; }
+  footer.site .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  footer.site ul { display: flex; gap: 1.2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+
+  @media (max-width: 820px) {
+    .hero, .split, .themes, .res-grid { grid-template-columns: 1fr; }
+    .hero { gap: 2.5rem; }
+    .course, dl.cv > div { grid-template-columns: 1fr; gap: .3rem; }
+    main { padding-top: 2.2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<noscript><style>section.page { display: block !important; margin-bottom: 4rem; }</style></noscript>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">Angeline Gautami Fernando</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="teaching.html" aria-current="page">Teaching</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <!-- TEACHING -->
+    <section class="page active" id="teaching" aria-labelledby="h-teaching">
+      <h2 id="h-teaching" style="margin-bottom:2rem">Teaching</h2>
+      <div>
+        <details class="theme course-block" id="mr">
+          <summary>
+            <h3>Marketing Research (2026)</h3>
+          </summary>
+
+          <h4 class="sub">Factor analysis</h4>
+          <ul class="plain">
+            <li><a href="marketing-research/hotel-csat-factor-analysis.html" target="_blank" rel="noopener">Hotel guest satisfaction: factor analysis with oblimin rotation</a> <span class="muted">50 guests and six satisfaction items, with an interactive 3D view of guest scores.</span></li>
+            <li><a href="marketing-research/csat-factor-analysis-jamovi-annotated.html" target="_blank" rel="noopener">Exploratory factor analysis in jamovi (annotated)</a> <span class="muted">Output for the same satisfaction items, with notes on how to read each table.</span></li>
+          </ul>
+        </details>
+
+        <details class="theme course-block" id="aim">
+          <summary>
+            <h3>AI for Marketing (2025)</h3>
+            <p>A 13-session course on how AI is changing marketing: strategy, personalisation and micro-targeting, market research, marketing communication, chatbots and AI agents, and guardrails and governance. Students work with hands-on KNIME workflows, worksheets and a Gemini-based market simulator.</p>
+          </summary>
+
+          <h4 class="sub">Sessions</h4>
+          <table class="sessions">
+            <tbody>
+              <tr><td>1</td><td>Introduction</td></tr>
+              <tr><td>2</td><td>Designing AI-driven marketing strategy</td></tr>
+              <tr><td>3 and 4</td><td>AI for personalisation and micro-targeting</td></tr>
+              <tr><td>5 and 6</td><td>AI and market research</td></tr>
+              <tr><td>7 and 8</td><td>AI and marketing communication</td></tr>
+              <tr><td>9 and 10</td><td>Chatbots and virtual assistants</td></tr>
+              <tr><td>11 and 12</td><td>AI agents</td></tr>
+              <tr><td>13</td><td>Guardrails and governance</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:.8rem"><a href="ai-for-marketing/session-plan.html" target="_blank" rel="noopener">Session plan with readings and cases</a></p>
+
+          <h4 class="sub">Worksheets and simulator</h4>
+          <ul class="plain">
+            <li><a href="ai-for-marketing/four-quadrants.html" target="_blank" rel="noopener">Four quadrants and capabilities</a> <span class="muted">Worked example for mapping AI use cases to capabilities.</span></li>
+            <li><a href="ai-for-marketing/ai-marketing-canvas.html" target="_blank" rel="noopener">AI marketing canvas</a> <span class="muted">Worked example for designing an AI-driven marketing strategy.</span></li>
+            <li><a href="https://gemini.google.com/gem/1uQbtIkbwMJtEToGx1tAAZGXQKsW-KeoE?usp=sharing" target="_blank" rel="noopener">Market simulator with synthetic persona</a> <span class="muted">A Gemini Gem that simulates shoppers from a published study of online second-hand and new goods buyers.</span></li>
+          </ul>
+
+          <h4 class="sub">KNIME workflows</h4>
+          <ul class="plain">
+            <li><a href="ai-for-marketing/gemini-credentials.html" target="_blank" rel="noopener">Setting up Gemini credentials</a></li>
+            <li><a href="ai-for-marketing/geospatial-extension.html" target="_blank" rel="noopener">Setting up the geospatial extension</a></li>
+            <li><a href="ai-for-marketing/linkedin-serp.html" target="_blank" rel="noopener">LinkedIn search results (SERP)</a></li>
+            <li><a href="ai-for-marketing/aspect-sentiment.html" target="_blank" rel="noopener">Aspect-based sentiment extraction</a></li>
+            <li><a href="ai-for-marketing/rag-chatbot.html" target="_blank" rel="noopener">Basic RAG chatbot</a></li>
+            <li><a href="ai-for-marketing/travel-agent-basic.html" target="_blank" rel="noopener">Simple travel agent</a></li>
+            <li><a href="ai-for-marketing/travel-agent-availability.html" target="_blank" rel="noopener">Travel agent with availability check</a></li>
+          </ul>
+        </details>
+
+        <details class="theme course-block" id="ba">
+          <summary>
+            <h3>Business Analytics</h3>
+            <p>Clustering and logistic regression.</p>
+          </summary>
+
+          <h4 class="sub">Clustering</h4>
+          <div class="videos">
+            <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/Na_73emNZSA" title="Clustering video 1" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/uxCiOjIN2lc" title="Clustering video 2" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+            <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/B9si78_A-XI" title="Clustering video 3" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          </div>
+
+          <h4 class="sub">Logistic regression</h4>
+          <div class="videos">
+            <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/PI3P2LUf_9Y" title="Logistic regression video" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          </div>
+</details>
+
+        <details class="theme course-block" id="dm">
+          <summary>
+            <h3>Digital Marketing</h3>
+          </summary>
+
+          <h4 class="sub">Lyzr-Agent for LLM SEO-Setup</h4>
+          <div class="videos">
+            <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/e3nVM2uimx4" title="Lyzr-Agent for LLM SEO-Setup" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="yr"></span> Angeline Gautami Fernando</span>
+    <ul id="links"></ul>
+  </div>
+</footer>
+
+<script>
+  /* ====== EDIT THIS BLOCK ====== */
+  const CONFIG = {
+    email: "",          // e.g. "name@greatlakes.edu.in"
+    linkedin: "",       // full URL
+    scholar: "",        // Google Scholar URL
+    researchgate: "",   // ResearchGate URL
+    photo: ""           // e.g. "photo.jpg" (add the file to the repo). Empty shows initials.
+  };
+  /* ====== END EDIT BLOCK ====== */
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  const links = document.getElementById("links");
+  [["Email", CONFIG.email && "mailto:" + CONFIG.email], ["LinkedIn", CONFIG.linkedin], ["Google Scholar", CONFIG.scholar], ["ResearchGate", CONFIG.researchgate]]
+    .forEach(([label, url]) => {
+      if (!url) return;
+      const li = document.createElement("li"), a = document.createElement("a");
+      a.href = url; a.textContent = label;
+      if (url.startsWith("http")) { a.target = "_blank"; a.rel = "noopener"; }
+      li.appendChild(a); links.appendChild(li);
+    });
+</script>
+</body>
+</html>

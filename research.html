@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research | Dr. Angeline Gautami Fernando</title>
+<meta name="description" content="Associate Professor of Digital and Social Media Marketing and Business Analytics, Great Lakes Institute of Management, Chennai.">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --surface: #FFFFFF;
+    --ink: #111111;
+    --muted: #666666;
+    --line: #E2E2E2;
+    --accent: #1D4ED8;
+    --accent-ink: #FFFFFF;
+    --soft: #F2F2F2;
+    --display: Verdana, Geneva, "DejaVu Sans", sans-serif;
+    --body: Verdana, Geneva, "DejaVu Sans", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111111; --surface: #111111; --ink: #F2F2F2; --muted: #A0A0A0;
+      --line: #2E2E2E; --accent: #7FA8FF; --accent-ink: #111111; --soft: #222222;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111111; --surface: #111111; --ink: #F2F2F2; --muted: #A0A0A0;
+    --line: #2E2E2E; --accent: #7FA8FF; --accent-ink: #111111; --soft: #222222;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--body); font-size: 1rem; line-height: 1.75;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+  header.site { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 5; }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: .9rem; padding-bottom: .9rem; }
+  .brand { font-family: var(--display); font-weight: 700; font-size: .95rem; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+  nav ul { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  nav a {
+    font-family: var(--display); font-weight: 400; font-size: .9rem; color: var(--muted);
+    text-decoration: none; padding: .4rem .8rem; border-radius: 4px; display: block;
+  }
+  nav a:hover { color: var(--ink); background: var(--soft); }
+  nav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+
+  main { padding: 3.5rem 0 5rem; min-height: 70vh; }
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .no-js section.page { display: block; margin-bottom: 4rem; }
+
+  h1, h2, h3 { font-family: var(--display); line-height: 1.25; letter-spacing: 0; margin: 0; }
+  h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; }
+  h2 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); font-weight: 700; margin-bottom: 1.5rem; }
+  h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; }
+  p { margin: 0 0 1.1rem; max-width: 62ch; }
+  .lede { font-size: 1.1rem; color: var(--ink); max-width: 56ch; }
+  .muted { color: var(--muted); }
+
+  /* Home */
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: center; }
+  .role { font-family: var(--display); font-weight: 500; font-size: 1rem; color: var(--muted); margin: 1.2rem 0 1.6rem; line-height: 1.6; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+  .btn {
+    font-family: var(--display); font-weight: 400; font-size: .9rem; text-decoration: none;
+    padding: .65rem 1.2rem; border-radius: 4px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; display: inline-block;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { background: var(--soft); }
+  .btn.primary:hover { filter: brightness(1.1); background: var(--accent); }
+
+  /* The thread: research questions as a conversation */
+  .thread { display: flex; flex-direction: column; gap: .9rem; list-style: none; padding: 0; margin: 0; }
+  .thread li { display: flex; }
+  .thread li:nth-child(even) { justify-content: flex-end; }
+  .bubble {
+    font-family: var(--display); font-weight: 500; font-size: .98rem; line-height: 1.45;
+    padding: .95rem 1.25rem; max-width: 22rem; text-decoration: none; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .thread li:nth-child(even) .bubble { border-radius: 4px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  a.bubble:hover { border-color: var(--accent); }
+  .thread li:nth-child(even) a.bubble:hover { filter: brightness(1.1); }
+
+  .monogram { font-size: 1.4rem;
+    width: 5rem; height: 5rem; border-radius: 4px; background: var(--soft); color: var(--accent);
+    display: grid; place-items: center; font-family: var(--display); font-weight: 700; margin-bottom: 1.4rem;
+  }
+  .photo { width: 7.5rem; height: 7.5rem; border-radius: 4px; object-fit: cover; margin-bottom: 1.4rem; border: 1px solid var(--line); }
+
+  /* Research */
+  .themes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
+  .theme { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.5rem; }
+  .theme h3 { margin-bottom: .6rem; }
+  .themes .theme:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .theme > p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .tp { margin-top: 1.1rem; }
+  .paper { padding: .8rem 0; border-top: 1px solid var(--line); font-size: .9rem; line-height: 1.55; }
+  .paper .pt { font-weight: 700; }
+  .paper .pm { font-size: .82rem; margin-top: .15rem; }
+  ul.plain { list-style: none; padding: 0; margin: 0; }
+  ul.plain li { padding: .7rem 0; border-top: 1px solid var(--line); }
+  ul.plain li:last-child { border-bottom: 1px solid var(--line); }
+  .pub { padding: 1rem 0; border-top: 1px solid var(--line); }
+  .pub:last-child { border-bottom: 1px solid var(--line); }
+  .pub .t { font-weight: 600; }
+
+  /* Teaching, resources, CV */
+  .course { display: grid; grid-template-columns: 14rem 1fr; gap: 1.5rem; padding: 1.2rem 0; border-top: 1px solid var(--line); }
+  .course:last-child { border-bottom: 1px solid var(--line); }
+  .course h3 { font-size: 1.15rem; }
+  .course p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .res { background: var(--surface); border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.4rem; }
+  .res-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .res h3 { margin-bottom: .5rem; }
+  .res p { margin: 0 0 .8rem; color: var(--muted); font-size: .95rem; }
+  .res a { font-family: var(--display); font-weight: 500; }
+  dl.cv { margin: 0 0 2rem; }
+  dl.cv > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1.5rem; padding: .9rem 0; border-top: 1px solid var(--line); }
+  dl.cv > div:last-child { border-bottom: 1px solid var(--line); }
+  dl.cv dt { font-family: var(--display); font-weight: 700; }
+  dl.cv dd { margin: 0; }
+
+  footer.site { border-top: 1px solid var(--line); padding: 1.6rem 0 2.4rem; color: var(--muted); font-size: .98rem; }
+  footer.site .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  footer.site ul { display: flex; gap: 1.2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+
+  @media (max-width: 820px) {
+    .hero, .split, .themes, .res-grid { grid-template-columns: 1fr; }
+    .hero { gap: 2.5rem; }
+    .course, dl.cv > div { grid-template-columns: 1fr; gap: .3rem; }
+    main { padding-top: 2.2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<noscript><style>section.page { display: block !important; margin-bottom: 4rem; }</style></noscript>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">Angeline Gautami Fernando</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html" aria-current="page">Research</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <!-- RESEARCH -->
+    <section class="page active" id="research" aria-labelledby="h-research">
+      <h2 id="h-research">Research</h2>
+      <p class="lede" style="margin-bottom:2rem">My research examines consumer behaviour in online shopping and social media, and uses text mining to generate marketing intelligence.</p>
+      <div class="themes">
+        <article class="theme">
+          <h3>Parasocial Relationships and Parasocial Interaction on Social Media</h3>
+          <p>How audiences form one-sided bonds with influencers and brands on social media.</p>
+          <div class="tp" data-theme="influencer"></div>
+        </article>
+        <article class="theme">
+          <h3>Online consumer behaviour and technology</h3>
+          <p>Why consumers choose online or in-store channels, search for information and trust technology.</p>
+          <div class="tp" data-theme="shopping"></div>
+        </article>
+        <article class="theme">
+          <h3>Consumer behaviour and marketing intelligence</h3>
+          <p>How consumers’ online questions and comments reveal what they want and how they feel.</p>
+          <div class="tp" data-theme="text"></div>
+        </article>
+      </div>
+
+      
+
+      
+
+      <div id="wip-block" class="theme" style="margin-top:-1.75rem;margin-bottom:3rem" hidden>
+        <h3 style="margin-bottom:.4rem">Working papers</h3>
+        <div id="wip"></div>
+      </div>
+    <div style="margin-top:3rem">
+        <h3 style="margin-bottom:.4rem">Other publications</h3>
+        <div class="tp" data-theme="other" style="margin-top:0"></div>
+      </div>
+
+      </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="yr"></span> Angeline Gautami Fernando</span>
+    <ul id="links"></ul>
+  </div>
+</footer>
+
+<script>
+  /* ====== EDIT THIS BLOCK ====== */
+  const CONFIG = {
+    email: "",          // e.g. "name@greatlakes.edu.in"
+    linkedin: "",       // full URL
+    scholar: "",        // Google Scholar URL
+    researchgate: "",   // ResearchGate URL
+    photo: ""           // e.g. "photo.jpg" (add the file to the repo). Empty shows initials.
+  };
+
+  // Working papers: {text, note} (descriptions only, no titles)
+  const WORKING_PAPERS = [
+    { themes: ["shopping"], text: "Experimental research on consumer trust in AI", note: "Work in progress." },
+    { themes: ["influencer"], text: "Research on virtual influencers", note: "Work in progress." },
+    { themes: ["influencer", "text"], text: "Research on parasocial language", note: "Work in progress." }
+  ];
+
+  // Add a url to any publication to make its title a link
+  const PUBLICATIONS = [
+    { themes: ["influencer"], title: "Consumers’ parasocial interactions and relationships with online influencers: a systematic review", url: "https://scholar.google.com/scholar?q=Consumers%27+parasocial+interactions+and+relationships+with+online+influencers%3A+a+systematic+review", authors: "ECX Aw, AG Fernando, S Balakrishnan, U Palaniappan", venue: "Journal of Consumer Marketing, 1-22", year: "2026" },
+    { themes: ["influencer"], title: "Social media marketing for luxury brands: parasocial interactions and empowerment for enhanced loyalty and willingness to pay a premium", url: "https://doi.org/10.1108/MIP-05-2023-0192", authors: "T Zha, ECX Aw, O Dastane, AG Fernando", venue: "Marketing Intelligence & Planning 41 (8), 1138-1161", year: "2023" },
+    { themes: ["text"], title: "What do consumers want? A methodological framework to identify determinant product attributes from consumers’ online questions", url: "https://doi.org/10.1016/j.jretconser.2023.103335", authors: "AG Fernando, ECX Aw", venue: "Journal of Retailing and Consumer Services 73, 103335", year: "2023" },
+    { themes: ["shopping"], title: "Investigation of consumers’ cross-channel switching intentions: a push-pull-mooring approach", url: "https://doi.org/10.1002/cb.1918", authors: "AC Haridasan, AG Fernando, S Balakrishnan", venue: "Journal of Consumer Behaviour 20 (5), 1092-1112", year: "2021" },
+    { themes: ["shopping"], title: "A systematic review of consumer information search in online and offline environments", url: "https://doi.org/10.1108/RAUSP-08-2019-0174", authors: "AC Haridasan, AG Fernando, B Saju", venue: "RAUSP Management Journal 56 (2), 234-253", year: "2021" },
+    { themes: ["text"], title: "How do consumers perceive brand campaigns on Twitter?", url: "https://doi.org/10.1007/978-3-030-64861-9_38", authors: "M Jain, AG Fernando, K Rajeshwari", venue: "International Working Conference on Transfer and Diffusion of IT, 438-443", year: "2020" },
+    { themes: ["text"], title: "Deriving marketing intelligence using online user generated textual content: a review of text mining applications", url: "https://ssrn.com/abstract=4929074", authors: "A Fernando", venue: "Available at SSRN 4929074", year: "2020" },
+    { themes: ["shopping"], title: "Segmentation of online and in-store teen shoppers based on shopping motives", url: "https://www.bim.edu/index/doc/2019/JOCMAR/2019/02_Chapter.pdf", authors: "AC Haridasan, A Gautami Fernando", venue: "Journal of Contemporary Management Research 13 (1), 24", year: "2019" },
+    { themes: ["shopping"], title: "Comparison of perceived acquisition value sought by online second-hand and new goods shoppers", url: "https://doi.org/10.1108/EJM-01-2017-0048", authors: "AG Fernando, B Sivakumaran, L Suganthi", venue: "European Journal of Marketing 52 (7-8), 1412-1438", year: "2018" },
+    { themes: ["shopping"], title: "Online or in-store: unravelling consumer’s channel choice motives", url: "https://doi.org/10.1108/JRIM-07-2017-0060", authors: "AC Haridasan, AG Fernando", venue: "Journal of Research in Interactive Marketing 12 (2), 215-230", year: "2018" },
+    { themes: ["other"], title: "Message involvement and attitude towards green advertisements", url: "https://doi.org/10.1108/MIP-11-2015-0216", authors: "AG Fernando, B Sivakumaran, L Suganthi", venue: "Marketing Intelligence & Planning 34 (6), 863-882", year: "2016" },
+    { themes: ["other"], title: "If you blog, will they follow? Using online media to set the agenda for consumer concerns on “greenwashed” environmental claims", url: "https://doi.org/10.1080/00913367.2013.841088", authors: "AG Fernando, L Suganthi, B Sivakumaran", venue: "Journal of Advertising 43 (2), 167-180", year: "2014" },
+    { themes: ["other"], title: "Nature of green advertisements in India: are they greenwashed?", url: "https://doi.org/10.1080/01292986.2014.885537", authors: "AG Fernando, B Sivakumaran, L Suganthi", venue: "Asian Journal of Communication 24 (3), 222-241", year: "2014" }
+  ];
+  /* ====== END EDIT BLOCK ====== */
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  const links = document.getElementById("links");
+  [["Email", CONFIG.email && "mailto:" + CONFIG.email], ["LinkedIn", CONFIG.linkedin], ["Google Scholar", CONFIG.scholar], ["ResearchGate", CONFIG.researchgate]]
+    .forEach(([label, url]) => {
+      if (!url) return;
+      const li = document.createElement("li"), a = document.createElement("a");
+      a.href = url; a.textContent = label;
+      if (url.startsWith("http")) { a.target = "_blank"; a.rel = "noopener"; }
+      li.appendChild(a); links.appendChild(li);
+    });
+
+  const loose = WORKING_PAPERS.filter(p => !(p.themes || []).length);
+  if (loose.length) {
+    document.getElementById("wip-block").hidden = false;
+    const wbox = document.getElementById("wip");
+    loose.forEach(p => {
+      const d = document.createElement("div"); d.className = "paper";
+      const t = document.createElement("div"); t.className = "pt"; t.textContent = p.text;
+      const m = document.createElement("div"); m.className = "pm muted"; m.textContent = p.note;
+      d.append(t, m); wbox.appendChild(d);
+    });
+  }
+
+  function paperEl(p) {
+    const d = document.createElement("div"); d.className = "paper";
+    const t = document.createElement("div"); t.className = "pt";
+    if (p.url) { const a = document.createElement("a"); a.href = p.url; a.textContent = p.title; a.target = "_blank"; a.rel = "noopener"; t.appendChild(a); }
+    else t.textContent = p.title;
+    const m = document.createElement("div"); m.className = "pm muted";
+    m.textContent = [p.authors, p.venue, p.year].filter(Boolean).join(". ");
+    d.append(t, m); return d;
+  }
+  document.querySelectorAll(".tp").forEach(box => {
+    const key = box.dataset.theme;
+    WORKING_PAPERS.filter(p => (p.themes || []).includes(key)).forEach(p => {
+      const d = document.createElement("div"); d.className = "paper";
+      const t = document.createElement("div"); t.className = "pt"; t.textContent = p.text;
+      const m = document.createElement("div"); m.className = "pm muted"; m.textContent = "Working paper. " + p.note;
+      d.append(t, m); box.appendChild(d);
+    });
+    PUBLICATIONS.filter(p => (p.themes || []).includes(key)).forEach(p => box.appendChild(paperEl(p)));
+  });
+</script>
+</body>
+</html>

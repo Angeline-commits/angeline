@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hotel CSAT: factor analysis with oblimin</title>
+<style>
+:root{
+  --bg:#F7F5F0; --card:#FFFFFF; --ink:#1F2A37; --mute:#64748B; --line:#E2E8F0;
+  --teal:#0F766E; --blue:#2563EB; --red:#C2410C; --gray:#94A3B8; --dot:#1F2A37; --ell:#B8893A;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151C; --card:#18202A; --ink:#E6EAF0; --mute:#9AA6B6; --line:#2A3441;
+    --teal:#2DD4BF; --blue:#60A5FA; --red:#FB923C; --gray:#6B7788; --dot:#E6EAF0; --ell:#E0B96A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151C; --card:#18202A; --ink:#E6EAF0; --mute:#9AA6B6; --line:#2A3441;
+  --teal:#2DD4BF; --blue:#60A5FA; --red:#FB923C; --gray:#6B7788; --dot:#E6EAF0; --ell:#E0B96A;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Calibri,"Segoe UI",system-ui,sans-serif}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(22px,3.4vw,32px);margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 16px;font-size:15px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 28px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.stage{position:relative;overflow:hidden}
+canvas{display:block;width:100%;height:auto;aspect-ratio:1/0.85;touch-action:none;cursor:grab}
+.hint{position:absolute;left:12px;top:10px;font-size:12px;color:var(--mute)}
+.how{padding:12px 14px 10px;border-top:1px solid var(--line);font-size:13px;line-height:1.5;color:var(--mute)}
+.how h4{margin:0 0 8px;font-size:13px;color:var(--ink)}
+.how ol{margin:0;padding:0;list-style:none}
+.how li{position:relative;padding-left:26px;margin:0 0 7px}
+.how li .n{position:absolute;left:0;top:1px;width:17px;height:17px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:10px;font-weight:700;line-height:17px;text-align:center}
+.how b{color:var(--ink)}
+.gt{border-collapse:collapse;margin:6px 0 4px;font-size:13px;text-align:center;width:100%;max-width:520px}
+.gt th,.gt td{padding:3px 8px;border-bottom:1px solid var(--line)}
+.gt th{color:var(--ink);font-weight:600}
+.cam{padding:12px 14px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.presets button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cam label{display:grid;grid-template-columns:56px 1fr;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+.cam input[type=range]{width:100%}
+.side{padding:16px;display:flex;flex-direction:column;gap:14px}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.steps button{flex:1 1 auto;border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:8px;padding:8px 10px;font:inherit;font-size:13px;cursor:pointer}
+.steps button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.txt h2{margin:0 0 6px;font-size:19px}
+.txt p{margin:0;color:var(--mute);line-height:1.5;font-size:15px;min-height:96px}
+.panel{display:flex;flex-direction:column;gap:7px;min-height:176px;transition:opacity .4s}
+.row{display:grid;grid-template-columns:44px 1fr 48px;align-items:center;gap:8px;font-size:14px}
+.row b{font-family:Georgia,serif;font-size:15px}
+.track{height:13px;background:var(--line);border-radius:7px;overflow:hidden}
+.fill{height:100%;width:0;border-radius:7px;transition:width .9s ease,opacity .6s}
+.row small{color:var(--mute);text-align:right}
+.lrow{display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;align-items:center;font-size:13px}
+.lrow .track{position:relative;height:16px}
+.lrow .track span{position:absolute;right:6px;top:0;font-size:11px;line-height:16px;color:var(--ink)}
+.lhead{display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;font-size:12px;font-weight:600}
+.note{font-size:12px;color:var(--mute)}
+.hide{display:none}
+.ctl{display:flex;gap:8px}
+.ctl button{flex:1;border:0;border-radius:8px;padding:10px;font:inherit;font-weight:600;cursor:pointer;background:var(--teal);color:#fff}
+.ctl button.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ctl button:not(.alt){color:#06201C}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Hotel guest satisfaction: factor analysis, oblimin</h1>
+  <p class="sub">50 guests, 6 satisfaction items, minres extraction with oblimin rotation. Drag the picture to rotate it.</p>
+  <div class="grid">
+    <div class="card stage">
+      <canvas id="cv" width="900" height="765"></canvas>
+      <div class="hint">Each dot is one guest (first 3 components)</div>
+      <div class="how" id="how"></div>
+      <div class="cam">
+        <div class="presets">
+          <button id="spin">Spin: off</button>
+          <button data-v="face">Face-on</button>
+          <button data-v="side">Side</button>
+          <button data-v="top">Top</button>
+          <button data-v="def">Default</button>
+        </div>
+        <label>Rotate <input type="range" id="sYaw" min="-3.14" max="3.14" step="0.01"></label>
+        <label>Tilt <input type="range" id="sPitch" min="-1.57" max="1.57" step="0.01"></label>
+      </div>
+    </div>
+    <div class="card side">
+      <div class="steps" id="steps"></div>
+      <div class="txt"><h2 id="ttl"></h2><p id="body"></p></div>
+      <div class="panel" id="scree"></div>
+      <div class="panel hide" id="load"></div>
+      <div class="ctl">
+        <button class="alt" id="prev">Back</button>
+        <button id="next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const D={"eig": [2.5332, 1.9829, 0.5738, 0.3431, 0.3072, 0.2599], "scores": [[2.311, -0.529, -0.863], [-1.62, -0.929, 1.093], [-3.391, 0.157, 0.158], [-0.156, 0.218, 1.757], [-3.66, 3.135, 0.723], [1.397, 1.313, -0.894], [-0.508, -1.519, 0.363], [-2.333, -0.441, -1.113], [-1.455, -0.849, 0.222], [0.252, 0.731, -0.275], [0.302, -0.14, -0.151], [0.884, -0.307, 0.402], [-0.075, 0.16, 0.412], [0.204, 0.673, -0.292], [1.088, -0.011, 1.279], [0.719, 0.294, -0.128], [-0.326, 1.095, 0.99], [-0.756, -0.83, -0.353], [0.42, 1.853, -0.968], [0.718, -1.676, -0.199], [0.455, -0.263, -0.87], [-0.588, -0.779, 0.307], [0.867, 1.736, 0.389], [2.047, -0.478, 1.269], [1.469, 0.568, 1.133], [0.123, 0.732, 1.053], [-0.508, -1.519, 0.363], [-5.353, -0.685, -0.586], [0.621, 1.106, -0.269], [1.135, -1.923, 1.225], [-1.356, -0.981, -1.038], [1.216, -1.982, -0.12], [1.048, -0.063, -0.709], [0.667, 2.482, -0.31], [2.425, -0.096, -0.696], [-0.11, 2.275, 0.314], [-0.429, 1.71, -0.969], [0.87, 0.808, 0.495], [2.111, 1.506, -0.089], [1.696, -1.534, -1.526], [-0.427, -1.578, -0.981], [-2.351, 0.92, 0.275], [1.397, 0.632, 0.507], [0.703, -2.921, -0.225], [-2.487, -0.318, -0.393], [-0.062, 1.044, -1.141], [2.128, -0.537, -0.076], [-0.97, -3.328, 0.382], [0.187, 2.715, -0.305], [-0.538, -1.649, 0.431]], "pat": [[-0.123, 0.64], [0.849, -0.086], [0.795, 0.091], [0.041, 0.952], [-0.002, 0.691], [0.825, 0.019]], "phi": 0.155, "comm": [0.424, 0.727, 0.64, 0.908, 0.478, 0.681], "ss": [2.05, 1.809], "dirs": [[0.8276, -0.5613], [0.5526, 0.8335]]};
+const ITEMS=['Bed comfort','Staff courtesy','Requests handled','Room cleanliness','Hotel amenities','Check-in speed'];
+const STEPS=[
+ {n:'Data cloud',t:'50 guests as a 3D cloud',b:'Six items cannot be drawn at once, so this is the best 3D view: the first three components of the correlation matrix. Each dot is one guest.'},
+ {n:'New axes',t:'Extraction finds the cloud’s own axes',b:'F1 and F2 are long (spreads 1.59 and 1.41). F3 is much shorter (0.76).'},
+ {n:'Eigenvalues',t:'Keep the components above 1',b:'Kaiser rule: F1 (2.533) and F2 (1.983) clear 1. The other four are all below 0.6. That gives two factors.'},
+ {n:'Keep 2',t:'Flatten onto the plane of two factors',b:'Factor analysis models only the shared variance of the items. The two minres factors explain 64% of the total (2.05 + 1.81 of 6).'},
+ {n:'Oblimin',t:'Oblimin lets the factor axes tilt',b:'The axes turn to the items and are no longer forced to 90°. F1 is Service, F2 is Room and facilities. They correlate at 0.155, so the axes sit 81° apart.'}
+];
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const K=0.55;                                   // world scale
+const SC=D.scores.map(r=>[r[0],r[1],r[2]]);    // F1,F2,F3 -> world X,Y,Z
+const SIG=D.eig.slice(0,3).map(Math.sqrt);
+const A1=Math.atan2(D.dirs[0][1],D.dirs[0][0]),A2=Math.atan2(D.dirs[1][1],D.dirs[1][0]);
+const MID=(A1+A2)/2,HALF=Math.acos(D.phi)/2,DEG=Math.acos(D.phi)*180/Math.PI;
+const FD=[[Math.cos(MID-HALF),Math.sin(MID-HALF)],[Math.cos(MID+HALF),Math.sin(MID+HALF)]]; // oblique axes in the plane
+let yaw=-0.7,pitch=0.35,drag=false,lx=0,ly=0,auto=false,camT=null,step=0;
+const cur={axes:0,flat:0,rot:0,ell:0};
+const D1=FD[0],D2=FD[1],DET=D1[0]*D2[1]-D1[1]*D2[0];
+function obl(a,b){return [(a*D2[1]-b*D2[0])/DET,(D1[0]*b-D1[1]*a)/DET]}
+const HL=(()=>{
+  const ratio=(x,y)=>Math.min(Math.abs(x),Math.abs(y))/Math.max(Math.abs(x),Math.abs(y),1e-9);
+  const c=SC.map((s,i)=>{const [u,v]=obl(s[0],s[1]);return {i,a:s[0],b:s[1],u,v,n:Math.hypot(s[0],s[1]),gain:ratio(s[0],s[1])-ratio(u,v)}});
+  const pick=k=>c.filter(g=>g.n>2&&g.gain>0.25&&(k===0?Math.abs(g.u)>Math.abs(g.v):Math.abs(g.v)>Math.abs(g.u))).sort((x,y)=>y.gain-x.gain).slice(0,2);
+  return [...pick(0),...pick(1)].map((g,j)=>({...g,L:'ABCD'[j]}));
+})();
+const tgt=()=>({axes:step>=1?1:0,ell:step>=1?1:0,flat:step>=3?1:0,rot:step>=4?1:0});
+
+function proj(v,w,h){
+  const [x,y,z]=v.map(a=>a*K);
+  const cy=Math.cos(yaw),sy=Math.sin(yaw);
+  const x1=x*cy+z*sy, z1=-x*sy+z*cy;
+  const cp=Math.cos(pitch),sp=Math.sin(pitch);
+  const y1=y*cp-z1*sp, z2=y*sp+z1*cp;
+  const sc=Math.min(w,h)/6.2, persp=1+z2*0.04;
+  return {x:w/2+x1*sc*persp,y:h/2-y1*sc*persp,z:z2};
+}
+function line(a,b,col,wd,dash,alpha){
+  ctx.save();ctx.globalAlpha=alpha==null?1:alpha;ctx.strokeStyle=col;ctx.lineWidth=wd;
+  ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.restore();
+}
+function arrow(a,b,col,wd,alpha){
+  line(a,b,col,wd,null,alpha);
+  const ang=Math.atan2(b.y-a.y,b.x-a.x),L=11;
+  ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(b.x,b.y);
+  ctx.lineTo(b.x-L*Math.cos(ang-0.4),b.y-L*Math.sin(ang-0.4));
+  ctx.lineTo(b.x-L*Math.cos(ang+0.4),b.y-L*Math.sin(ang+0.4));ctx.closePath();ctx.fill();ctx.restore();
+}
+function label(t,p,col,size,alpha,dx,dy){
+  ctx.save();ctx.globalAlpha=alpha==null?1:alpha;ctx.fillStyle=col;ctx.font=`${size||16}px Georgia,serif`;
+  ctx.fillText(t,p.x+(dx||8),p.y+(dy||-6));ctx.restore();
+}
+function ring(axA,axB,ra,rb,col,alpha,P){
+  const pts=[];for(let i=0;i<=64;i++){const t=i/64*Math.PI*2;
+    const v=[0,0,0];v[axA]=Math.cos(t)*ra;v[axB]=Math.sin(t)*rb;pts.push(P(v));}
+  ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=col;ctx.lineWidth=1.3;ctx.beginPath();
+  pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.restore();
+}
+const HOW=[
+ ['<b>Each dot is one guest.</b> Its position comes from the guest’s six ratings: each rating is standardised (above or below the average guest), multiplied by that axis’s weight from the correlation matrix, and added up. That gives one coordinate per axis.','<b>A, B and C</b> are three guests marked so you can follow them through every step.','<b>The dashed lines</b> are the three axes. They cross at the centre, the average guest, who rates every item at the average.','<b>Not a round ball.</b> The cloud is stretched in some directions and thin in one, because the items move together. Factor analysis uses that.'],
+ ['<b>Arrows F1, F2, F3</b> are new axes through the cloud, at right angles, ordered from most spread to least.','<b>F3 is short.</b> Guests barely differ along it, so it carries little information.'],
+ ['<b>Each bar is an eigenvalue</b>: the variance one axis captures (its length squared). The bar scale runs from 0 to 3.','<b>The Kaiser rule:</b> keep factors with an eigenvalue above 1, a bar longer than one third of the track.','<b>F1 and F2 pass; F3 to F6 do not.</b> So the picture will keep two axes.'],
+ ['<b>Red dotted lines</b> show each guest sliding straight down onto the plane made by F1 and F2.','<b>F3 is dropped.</b> A guest’s position along it is ignored; the F1 and F2 positions stay exactly as they were.','<b>Why it works:</b> the cloud was already thin along F3, so the picture changes little.'],
+ ['<b>Rotation turns the axes, not the data.</b> The dots stay where they are. Only the arrows move, to a position that makes the loadings easier to read.','<b>Highlighted guests A to C</b> were picked to show the effect. Before rotation each sits between the axes, so both coordinates look sizable. After rotation each lies close to one axis: one coordinate is near zero, and the bold one shows which factor the guest belongs to. The label and colour name that factor: teal for F1, blue for F2.','<b>The goal is simple structure.</b> Each item should load high on one factor and near zero on the other. After rotation, F1 (Service) lines up with staff, requests and check-in, and F2 (Room and facilities) with cleanliness, amenities and bed.','<b>Oblimin is an oblique rotation.</b> The axes may tilt toward each other instead of staying at 90°, as they would in an orthogonal rotation such as varimax. The arc shows 81°, which means the factors correlate at 0.155 (cos 81° ≈ 0.155).','<b>Why it matters:</b> the correlation is small, so an orthogonal rotation would give a very similar picture. Keeping oblimin is safe either way.','<b>Fine print:</b> the loadings and the angle are exact; the exact tilt of the arrows in this plane is a best-fit drawing.']
+];
+function guestTable(){
+  const f=x=>x.toFixed(1);
+  const rows=HL.map(g=>'<tr><td><b>'+g.L+'</b></td><td>'+f(g.a)+'</td><td>'+f(g.b)+'</td><td>'+(Math.abs(g.u)>Math.abs(g.v)?'<b>'+f(g.u)+'</b>':f(g.u))+'</td><td>'+(Math.abs(g.v)>Math.abs(g.u)?'<b>'+f(g.v)+'</b>':f(g.v))+'</td><td style="color:var(--'+(Math.abs(g.u)>Math.abs(g.v)?'teal':'blue')+');font-weight:700">'+(Math.abs(g.u)>Math.abs(g.v)?'F1 Service':'F2 Room')+'</td></tr>').join('');
+  return '<table class="gt"><tr><th></th><th colspan="2">Before (F1, F2)</th><th colspan="2">After (F1, F2)</th><th>Sits next to</th></tr>'+rows+'</table>';
+}
+function callout(t,p,dx,dy,col){
+  const q={x:p.x+dx,y:p.y+dy};
+  line(p,q,col,1.5,null,0.9);
+  ctx.save();ctx.font='15px Calibri,sans-serif';const tw=ctx.measureText(t).width+14;
+  const bx=dx<0?q.x-tw:q.x,by=q.y-12;
+  ctx.fillStyle=css('--card');ctx.globalAlpha=0.92;ctx.strokeStyle=col;ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.roundRect(bx,by,tw,24,6);ctx.fill();ctx.globalAlpha=1;ctx.stroke();
+  ctx.fillStyle=css('--ink');ctx.fillText(t,bx+7,by+17);ctx.restore();
+}
+function draw(){
+  const w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+  const gray=css('--gray'),teal=css('--teal'),blue=css('--blue'),red=css('--red'),dot=css('--dot'),card=css('--card'),ell=css('--ell');
+  const P=v=>proj(v,w,h);const O=P([0,0,0]);
+  const flat=cur.flat,th=1-flat;
+  // neutral axes at the origin (before they get names)
+  const ng=1-cur.axes;
+  if(ng>0.02)[[4.2,0,0],[0,3.6,0],[0,0,2.2]].forEach(e=>{line(O,P(e),gray,1.4,[6,5],ng)});
+  // PC axes
+  const aa=cur.axes, fade=1-cur.rot*0.65;
+  if(aa>0.02){
+    const e1=P([3.9,0,0]),e2=P([0,3.4,0]);
+    arrow(P([-3.9,0,0]),e1,teal,3.5,aa*fade);label('F1',e1,teal,20,aa*fade,10,-8);
+    arrow(P([0,-3.4,0]),e2,blue,3.5,aa*fade);label('F2',e2,blue,20,aa*fade,10,-8);
+    const f3=aa*(1-flat*0.9);
+    if(f3>0.03){const t3=Math.max(th,0.02),e3=P([0,0,2.0*t3]);
+      arrow(P([0,0,-2.0*t3]),e3,red,3.5,f3);label('F3',e3,red,20,f3,10,-8);}
+  }
+  // rotated factor axes inside the plane
+  if(cur.rot>0.02){
+    const L=4.1,r=cur.rot;
+    const f1=P([FD[0][0]*L,FD[0][1]*L,0]),f2=P([FD[1][0]*L,FD[1][1]*L,0]);
+    arrow(P([-FD[0][0]*L,-FD[0][1]*L,0]),f1,teal,4.5,r);label('F1: Service',f1,teal,18,r,10,-8);
+    arrow(P([-FD[1][0]*L,-FD[1][1]*L,0]),f2,blue,4.5,r);label('F2: Room & facilities',f2,blue,18,r,10,-8);
+    const arc=[];for(let i=0;i<=20;i++){const a=MID-HALF+2*HALF*i/20;arc.push(P([Math.cos(a)*1.3,Math.sin(a)*1.3,0]));}
+    ctx.save();ctx.globalAlpha=r;ctx.strokeStyle=css('--ink');ctx.lineWidth=2;ctx.beginPath();arc.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();ctx.restore();
+    label(DEG.toFixed(0)+'° (not 90°)',P([Math.cos(MID)*1.9,Math.sin(MID)*1.9,0]),css('--ink'),17,r,0,0);
+  }
+  // points (depth sorted), with drop lines while flattening
+  const dots=SC.map((s,i)=>({s,p:P([s[0],s[1],s[2]*th]),i}));
+  if(step>=3)dots.forEach(d=>line(P(d.s),P([d.s[0],d.s[1],0]),red,1,[3,3],0.35*(1-flat)));
+  dots.sort((a,b)=>b.p.z-a.p.z).forEach(d=>{
+    const dep=Math.max(0.35,Math.min(1,0.75-d.p.z*0.08));
+    ctx.save();ctx.globalAlpha=dep;ctx.fillStyle=dot;ctx.strokeStyle=card;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(d.p.x,d.p.y,5.5,0,7);ctx.fill();ctx.stroke();ctx.restore();
+  });
+  if(step===0){
+    const far=dots.reduce((m,d)=>d.s[0]>m.s[0]?d:m,dots[0]);
+    callout('one guest',far.p,-45,-50,gray);
+    callout('centre = average guest',O,-30,70,gray);
+  }
+  HL.forEach(g=>{
+    const s=SC[g.i],p=P([s[0],s[1],s[2]*th]),ink=css('--ink');
+    const f1=Math.abs(g.u)>Math.abs(g.v),on=cur.rot>0.5;
+    const col=on?(f1?teal:blue):ink,txt=on?g.L+' → '+(f1?'F1':'F2'):g.L;
+    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();ctx.arc(p.x,p.y,12,0,7);ctx.stroke();
+    ctx.font='bold 18px Calibri,sans-serif';ctx.lineWidth=4;ctx.strokeStyle=card;ctx.strokeText(txt,p.x+15,p.y-12);
+    ctx.fillStyle=col;ctx.fillText(txt,p.x+15,p.y-12);ctx.restore();
+  });
+  if(step>=4){
+    const r=cur.rot,ink=css('--ink');
+    HL.forEach(g=>{
+      const p=P([g.a,g.b,0]);
+      line(p,P([g.a,0,0]),gray,1.6,[4,4],1-r);
+      line(p,P([0,g.b,0]),gray,1.6,[4,4],1-r);
+      line(p,P([g.u*D1[0],g.u*D1[1],0]),teal,2,[4,3],r);
+      line(p,P([g.v*D2[0],g.v*D2[1],0]),blue,2,[4,3],r);
+    });
+  }
+  if(flat>0.98){ctx.save();ctx.fillStyle=teal;ctx.font='bold 17px Calibri,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Two factors kept',w/2,h-20);ctx.restore();}
+}
+const lerp=(a,b,k)=>a+(b-a)*k;
+function frame(){
+  const t=tgt();for(const k in cur)cur[k]=lerp(cur[k],t[k],k==='flat'||k==='rot'?0.04:0.06);
+  if(camT&&!drag){
+    let dy=camT.yaw-yaw;dy=Math.atan2(Math.sin(dy),Math.cos(dy));const dp=camT.pitch-pitch;
+    yaw+=dy*0.12;pitch+=dp*0.12;
+    if(Math.abs(dy)<0.002&&Math.abs(dp)<0.002){yaw=camT.yaw;pitch=camT.pitch;camT=null;}
+  } else if(auto&&!drag)yaw+=0.004;
+  syncCam();draw();requestAnimationFrame(frame);
+}
+/* side panels */
+const scree=document.getElementById('scree'),load=document.getElementById('load');
+const COLS=['var(--teal)','var(--blue)','var(--gray)','var(--gray)','var(--gray)','var(--gray)'];
+scree.innerHTML=D.eig.map((v,i)=>`<div class="row"><b style="color:${i<2?COLS[i]:'var(--mute)'}">F${i+1}</b><div class="track"><div class="fill" data-v="${v}" data-i="${i}" style="background:${COLS[i]}"></div></div><small>${v.toFixed(3)}</small></div>`).join('')+'<div class="note">Kaiser cutoff: eigenvalue above 1 (a bar over one-third of the track)</div>';
+load.innerHTML='<div class="lhead"><span></span><span style="color:var(--teal)">F1: Service</span><span style="color:var(--blue)">F2: Room</span></div>'+
+ ITEMS.map((n,i)=>{const a=D.pat[i][0],b=D.pat[i][1];
+  return `<div class="lrow"><span>${n}</span><div class="track"><div class="fill" data-l="${Math.abs(a)}" style="background:var(--teal)"></div><span>${a.toFixed(2)}</span></div><div class="track"><div class="fill" data-l="${Math.abs(b)}" style="background:var(--blue)"></div><span>${b.toFixed(2)}</span></div></div>`}).join('')+
+ '<div class="note">Oblimin pattern loadings (minres). Factor correlation = '+D.phi.toFixed(3)+'. Variance: '+D.ss[0].toFixed(2)+' + '+D.ss[1].toFixed(2)+' = '+(D.ss[0]+D.ss[1]).toFixed(2)+' of 6 (64%).</div>';
+function setStep(n){
+  step=Math.max(0,Math.min(STEPS.length-1,n));
+  document.getElementById('ttl').textContent=STEPS[step].t;
+  document.getElementById('body').textContent=STEPS[step].b;
+  [...document.querySelectorAll('#steps button')].forEach((b,i)=>b.classList.toggle('on',i===step));
+  const showL=step>=4,showS=step>=2&&step<4;
+  scree.classList.toggle('hide',!showS);load.classList.toggle('hide',!showL);
+  scree.querySelectorAll('.fill').forEach(el=>{const v=+el.dataset.v,i=+el.dataset.i;
+    el.style.width=showS?(v/3*100)+'%':'0%';el.style.opacity=i<2?1:0.45;});
+  load.querySelectorAll('.fill').forEach(el=>{el.style.width=showL?(+el.dataset.l*100)+'%':'0%'});
+  document.getElementById('next').textContent=step===STEPS.length-1?'Replay':'Next';
+  document.getElementById('how').innerHTML='<h4>How to read this picture</h4><ol>'+HOW[step].map((x,i)=>'<li><span class="n">'+(i+1)+'</span>'+x+'</li>').join('')+'</ol>'+(step===4?guestTable():'');
+}
+const sb=document.getElementById('steps');
+STEPS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+s.n;b.onclick=()=>setStep(i);sb.appendChild(b)});
+document.getElementById('next').onclick=()=>setStep(step===STEPS.length-1?0:step+1);
+document.getElementById('prev').onclick=()=>setStep(step-1);
+/* camera */
+cv.addEventListener('pointerdown',e=>{camT=null;drag=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'});
+cv.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-lx)*0.01;pitch=Math.max(-1.57,Math.min(1.57,pitch+(e.clientY-ly)*0.01));lx=e.clientX;ly=e.clientY});
+['pointerup','pointercancel'].forEach(ev=>cv.addEventListener(ev,()=>{drag=false;cv.style.cursor='grab'}));
+const sYaw=document.getElementById('sYaw'),sPitch=document.getElementById('sPitch'),spinB=document.getElementById('spin');
+const VIEWS={face:{yaw:0,pitch:0},side:{yaw:Math.PI/2,pitch:0},top:{yaw:0,pitch:1.5},def:{yaw:-0.7,pitch:0.35}};
+function syncCam(){
+  const y=((yaw+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
+  if(document.activeElement!==sYaw)sYaw.value=y;
+  if(document.activeElement!==sPitch)sPitch.value=pitch;
+}
+function clearPresets(){document.querySelectorAll('.presets [data-v]').forEach(b=>b.classList.remove('on'))}
+sYaw.addEventListener('input',()=>{camT=null;auto=false;spinB.textContent='Spin: off';spinB.classList.remove('on');yaw=parseFloat(sYaw.value);clearPresets()});
+sPitch.addEventListener('input',()=>{camT=null;pitch=parseFloat(sPitch.value);clearPresets()});
+spinB.onclick=()=>{auto=!auto;camT=null;spinB.textContent='Spin: '+(auto?'on':'off');spinB.classList.toggle('on',auto)};
+document.querySelectorAll('.presets [data-v]').forEach(b=>b.onclick=()=>{
+  camT=VIEWS[b.dataset.v];auto=false;spinB.textContent='Spin: off';spinB.classList.remove('on');clearPresets();b.classList.add('on');
+});
+setStep(0);frame();
+</script>
+</body>
+</html>
